@@ -1,9 +1,8 @@
-package com.mygdx.game
+package com.mygdx.game.visual
 
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Texture
-import com.mygdx.game.visual.Asset
 
 class GameAssets {
 
@@ -16,8 +15,9 @@ class GameAssets {
 
         private fun loadAssets() {
             var playerAsset = AssetDescriptor(Asset.PLAYER, Texture::class.java)
-
+            var playerSheetAsset = AssetDescriptor(Asset.PLAYER_SHEET, Texture::class.java)
             manager.load(playerAsset)
+            manager.load(playerSheetAsset)
 
             manager.finishLoading()
         }

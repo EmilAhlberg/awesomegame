@@ -2,8 +2,8 @@ package com.mygdx.game.entities
 
 abstract class Mover(asset: String) : GameObject(asset){
 
-    var direction = 0
-    var speed = 100f
+    var rotation = 0
+    var speed = 1f
 
 
     abstract fun move(x: Float, y: Float);
