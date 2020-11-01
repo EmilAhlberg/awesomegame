@@ -5,8 +5,6 @@ sourceSets.main.resources.srcDirs = ["../android/assets"]
 project.ext {
     mainClassName = "your.game.package.DesktopLauncher"
     assetsDir = new File("../android/assets");
-    //format for texturePacker: picture1, picture2, ... , outputname
-    texturePacker = ["badlogic.jpg", "player_sprites.png", "packed_sprites"]
 }
 
 task run(dependsOn: classes, type: JavaExec) {
@@ -40,7 +38,7 @@ task dist(type: Jar) {
 
 
 // Store the parameters you want to pass the texturePacker here...
-project.ext.texturePacker = [ "android/assets/input/path/", "android/assets/output/path/", "atlas_name" ]
+texturePacker = ["badlogic.jpg", "player_sprites.png", "packed_sprites"]
 
 // Import the texture packer
 import com.badlogic.gdx.tools.texturepacker.TexturePacker
