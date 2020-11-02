@@ -7,11 +7,9 @@ import com.badlogic.gdx.graphics.FPSLogger
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.ScreenViewport
-import com.mygdx.game.visual.GameAssets
 import com.mygdx.game.World
 import com.mygdx.game.controls.ControllerFactory
 import com.mygdx.game.entities.Player
@@ -29,8 +27,7 @@ class GameScreen (game: Game) : Screen   {
     val debugMoveBox: Rectangle = Rectangle(Gdx.graphics.width*0.75.toFloat(), 0f,
     Gdx.graphics.width.toFloat()*0.20.toFloat(), Gdx.graphics.height*0.5.toFloat())
 
-    val region: TextureRegion = TextureRegion(GameAssets.getTexture(Asset.PLAYER), debugMoveBox.x, debugMoveBox.y,
-            debugMoveBox.width, debugMoveBox.height)
+    //val region: TextureRegion = TextureRegion(GameAssets.getTexture(Asset.PLAYER), debugMoveBox.x, debugMoveBox.y, debugMoveBox.width, debugMoveBox.height)
 
 
 
@@ -49,7 +46,6 @@ class GameScreen (game: Game) : Screen   {
     override fun show() {
         Gdx.app.log("MainScreen", "show")
         player = Player(Asset.PLAYER)
-        val playerAsset = GameAssets.getTexture(Asset.PLAYER_SHEET)
         Gdx.input.inputProcessor = ControllerFactory.create(player)
         System.out.println(Gdx.graphics.height)
         System.out.println(Gdx.graphics.width)
@@ -64,11 +60,11 @@ class GameScreen (game: Game) : Screen   {
         Gdx.gl.glClearColor(1f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         batch.begin()
-            batch.draw(region, debugMoveBox.x, debugMoveBox.y, debugMoveBox.width, debugMoveBox.height)
+        //batch.draw(region, debugMoveBox.x, debugMoveBox.y, debugMoveBox.width, debugMoveBox.height)
         //moveCamera()
         stage.act(Gdx.graphics.getDeltaTime())
         player.update()
-        player.draw(batch, 0.5f)
+        player.draw(batch, 0.5f, gameTime)
 
         stage.draw()
         batch.end()

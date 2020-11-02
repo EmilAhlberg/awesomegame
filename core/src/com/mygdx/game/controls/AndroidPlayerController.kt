@@ -13,6 +13,7 @@ class AndroidPlayerController (player: Player) : GestureDetector.GestureListener
     Gdx.graphics.width.toFloat()*0.2.toFloat(), Gdx.graphics.height*0.5.toFloat())
     val moveBoxCenter: Vector2 = moveControlBox.getCenter(Vector2())
 
+    var alreadyMoving: Boolean = false
 
     private fun movePlayer(x: Float, y: Float): Boolean {
         val dx = x - moveBoxCenter.x
@@ -31,6 +32,10 @@ class AndroidPlayerController (player: Player) : GestureDetector.GestureListener
     }
 
     override fun pan(x: Float, y: Float, deltaX: Float, deltaY: Float): Boolean {
+        if(!alreadyMoving) {
+            alreadyMoving = true
+            moveBoxCenter.set(x, y)
+        }
         return movePlayer(x, y)
     }
 
@@ -42,6 +47,7 @@ class AndroidPlayerController (player: Player) : GestureDetector.GestureListener
     }
 
     override fun panStop(x: Float, y: Float, pointer: Int, button: Int): Boolean {
+        alreadyMoving = false
         player.resetMovement()
         return true
     }
