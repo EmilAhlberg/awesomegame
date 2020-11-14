@@ -14,71 +14,34 @@ import com.mygdx.game.World
 import com.mygdx.game.controls.ControllerFactory
 import com.mygdx.game.entities.Player
 import com.mygdx.game.visual.Asset
+import kotlin.math.abs
 
 class GameScreen (game: Game) : Screen   {
     val game : Game = game
     val stage : Stage = Stage(ScreenViewport())
-    private var camera: OrthographicCamera  = stage.getViewport().getCamera() as OrthographicCamera
 
+    private var world : World
     var gameTime = 0f
-
-    var world : World
-
-    val debugMoveBox: Rectangle = Rectangle(Gdx.graphics.width*0.75.toFloat(), 0f,
-    Gdx.graphics.width.toFloat()*0.20.toFloat(), Gdx.graphics.height*0.5.toFloat())
-
-    //val region: TextureRegion = TextureRegion(GameAssets.getTexture(Asset.PLAYER), debugMoveBox.x, debugMoveBox.y, debugMoveBox.width, debugMoveBox.height)
-
-
-
-    private val minAltitude = 0.5f
-    private val maxAltitude = 2.5f
-    private var percent = 0f
-    lateinit var player : Player
-
     var batch: SpriteBatch = SpriteBatch();
 
+
     init {
-        //batch = SpriteBatch();
-        world = World();
+        world = World(stage.viewport.camera as OrthographicCamera, Player())
     }
 
     override fun show() {
         Gdx.app.log("MainScreen", "show")
-        player = Player(Asset.PLAYER)
-        Gdx.input.inputProcessor = ControllerFactory.create(player)
-        System.out.println(Gdx.graphics.height)
-        System.out.println(Gdx.graphics.width)
     }
 
     override fun render(delta: Float) {
-        FPSLogger().log()
         gameTime += Gdx.graphics.deltaTime
-        percent = gameTime % 5 / 5
-        percent = Math.cos(percent * Math.PI * 2).toFloat() / 2 + 0.5f
-        percent = Math.cos(percent * Math.PI * 2).toFloat() / 2 + 0.5f
         Gdx.gl.glClearColor(1f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         batch.begin()
-        //batch.draw(region, debugMoveBox.x, debugMoveBox.y, debugMoveBox.width, debugMoveBox.height)
-        //moveCamera()
         stage.act(Gdx.graphics.getDeltaTime())
-        player.update()
-        player.draw(batch, 0.5f, gameTime)
-
+        world.draw(batch, gameTime)
         stage.draw()
         batch.end()
-    }
-
-    private fun moveCamera() {
-        val currentX =  percent
-        val currentY = percent
-        val percentZ = Math.abs(percent - 0.5f) * 2
-        val currentZ = maxAltitude - (maxAltitude - minAltitude) * percentZ
-        camera!!.position.x = currentX
-        camera!!.position.y = currentY
-        camera!!.zoom = currentZ
-        camera!!.update()
     }
 
     override fun hide() {

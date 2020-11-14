@@ -9,9 +9,9 @@ import com.mygdx.game.entities.Player
 class AndroidPlayerController (player: Player) : GestureDetector.GestureListener {
 
     val player: Player = player
-    val moveControlBox: Rectangle = Rectangle(Gdx.graphics.width*0.75.toFloat(), Gdx.graphics.height.toFloat()*0.5.toFloat(),
+    private val moveControlBox: Rectangle = Rectangle(Gdx.graphics.width*0.75.toFloat(), Gdx.graphics.height.toFloat()*0.5.toFloat(),
     Gdx.graphics.width.toFloat()*0.2.toFloat(), Gdx.graphics.height*0.5.toFloat())
-    val moveBoxCenter: Vector2 = moveControlBox.getCenter(Vector2())
+    private val moveBoxCenter: Vector2 = moveControlBox.getCenter(Vector2())
 
     var alreadyMoving: Boolean = false
 
