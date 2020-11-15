@@ -1,34 +1,41 @@
 
 pack.png
-size: 512,512
+size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 playerbadlogic
   rotate: false
-  xy: 2, 204
+  xy: 373, 204
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: 1
 playerbadlogic
   rotate: false
-  xy: 2, 204
+  xy: 373, 204
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: 2
 playerrunning
   rotate: false
-  xy: 2, 2
+  xy: 631, 260
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 1
 playerrunning
   rotate: false
-  xy: 260, 260
+  xy: 373, 2
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 2
+sheeprunning
+  rotate: false
+  xy: 2, 91
+  size: 369, 369
+  orig: 369, 369
+  offset: 0, 0
+  index: -1
