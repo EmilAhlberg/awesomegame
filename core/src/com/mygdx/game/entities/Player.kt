@@ -1,6 +1,7 @@
 package com.mygdx.game.entities
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.math.Vector2
 import com.mygdx.game.visual.AnimationType
 import com.mygdx.game.visual.Asset
 import com.mygdx.game.visual.GameAssets

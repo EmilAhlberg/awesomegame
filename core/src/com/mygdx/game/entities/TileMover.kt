@@ -16,7 +16,6 @@ abstract class TileMover: GameObject() {
         DOWN(Vector2(0f,-1f), GridPoint2(0,-1))
     }
 
-    var currentTile = GridPoint2(position.x.div(TILE_WIDTH).toInt(), position.y.div(TILE_HEIGHT).toInt())
     var targetTile = currentTile.cpy()
 
     var currentMove = MoveAction.IDLE
@@ -27,7 +26,9 @@ abstract class TileMover: GameObject() {
     var dy: Float = 0f
     var rectangle : Rectangle = Rectangle(0f,0f, TILE_WIDTH, TILE_HEIGHT)
 
-    fun update() {
+
+    override fun update(bottomLeftTile: GridPoint2, topRightTile: GridPoint2) {
+        super.update(bottomLeftTile, topRightTile)
         setOrientation()
         handleMovement()
         rectangle.setPosition(position)
@@ -78,10 +79,5 @@ abstract class TileMover: GameObject() {
     private fun prepareMovement(nextMove: MoveAction) {
         currentMove = nextMove
         targetTile.add(currentMove.point)
-    }
-
-    companion object {
-        private const val TILE_HEIGHT = 32f
-        private const val TILE_WIDTH = 32f
     }
 }
