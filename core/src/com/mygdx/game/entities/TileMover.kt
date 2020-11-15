@@ -1,51 +1,87 @@
 package com.mygdx.game.entities
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.math.GridPoint2
 import com.badlogic.gdx.math.Rectangle
+import com.badlogic.gdx.math.Vector2
 import kotlin.math.abs
 
 abstract class TileMover: GameObject() {
 
-    val IDLE = 0f
-    val UP = 1f
-    val DOWN = 2f
-    val LEFT = 3f
-    val RIGHT = 4f
+    enum class MoveAction(val vec: Vector2, val point: GridPoint2) {
+        IDLE(Vector2(0f,0f), GridPoint2(0,0)),
+        LEFT(Vector2(-1f, 0f), GridPoint2(-1,0)),
+        RIGHT(Vector2(1f, 0f), GridPoint2(1,0)),
+        UP(Vector2(0f,1f), GridPoint2(0,1)),
+        DOWN(Vector2(0f,-1f), GridPoint2(0,-1))
+    }
 
-    var orientation = IDLE
+    var currentTile = GridPoint2(position.x.div(TILE_WIDTH).toInt(), position.y.div(TILE_HEIGHT).toInt())
+    var targetTile = currentTile.cpy()
 
-    var speed = 10f
+    var currentMove = MoveAction.IDLE
+    var nextMove = MoveAction.IDLE
+
+    var speed = 50f
     var dx: Float = 0f
     var dy: Float = 0f
-    var rectangle : Rectangle = Rectangle(0f,0f,
-        100f, 100f)
-
-    abstract fun move();
-
+    var rectangle : Rectangle = Rectangle(0f,0f, TILE_WIDTH, TILE_HEIGHT)
 
     fun update() {
         setOrientation()
-        moveTile()
-        //rotation = atan2(this.dy, this.dx)  + PI.toFloat()/2 % 2f * PI.toFloat()
-        //move()
-        rectangle.setPosition(x,y)
+        handleMovement()
+        rectangle.setPosition(position)
     }
 
-    private fun moveTile() {
-        when(orientation){
-            LEFT -> x -= speed
-            RIGHT -> x += speed
-            UP -> y += speed
-            DOWN -> y -= speed
+    private fun handleMovement() {
+        if(currentMove == MoveAction.IDLE) {
+            return
         }
+        //cpy performance?
+        var nextPos = position.cpy().mulAdd(currentMove.vec, speed*Gdx.graphics.deltaTime)
+
+        var xMismatch= (targetTile.x* TILE_WIDTH).toInt() != nextPos.x.toInt()
+        var yMismatch = (targetTile.y* TILE_WIDTH).toInt() != nextPos.y.toInt()
+
+        if(xMismatch || yMismatch ) {
+            // Tile move transition
+            position = nextPos
+            return
+        }
+        //Finish movement
+        currentTile.add(currentMove.point)
+        prepareMovement(nextMove)
+        applySmoothing(nextPos)
+    }
+
+    private fun applySmoothing(nextPos: Vector2) {
+        // Smoothing of movement action transitions
+        nextPos.sub(position)
+        position.set(currentTile.x* TILE_WIDTH, currentTile.y* TILE_HEIGHT)
+        position.mulAdd(currentMove.vec, abs(nextPos.x + nextPos.y))
     }
 
     private fun setOrientation() {
-        var newOrientation = IDLE
+        var newMove = MoveAction.IDLE
         if(abs(dx) > abs(dy)) {
-            newOrientation = if (dx < 0) LEFT else RIGHT
+            newMove = if (dx < 0) MoveAction.LEFT else MoveAction.RIGHT
         } else if(dy != 0f) {
-            newOrientation = if (dy < 0) DOWN else UP
+            newMove = if (dy < 0) MoveAction.DOWN else MoveAction.UP
         }
-        orientation = newOrientation
+
+        if(currentMove == MoveAction.IDLE){
+            prepareMovement(newMove)
+        }
+        nextMove = newMove
+    }
+
+    private fun prepareMovement(nextMove: MoveAction) {
+        currentMove = nextMove
+        targetTile.add(currentMove.point)
+    }
+
+    companion object {
+        private const val TILE_HEIGHT = 32f
+        private const val TILE_WIDTH = 32f
     }
 }

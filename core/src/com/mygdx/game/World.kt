@@ -24,9 +24,9 @@ class World(camera: OrthographicCamera, player: Player) {
 
     init {
         Gdx.input.inputProcessor = ControllerFactory.create(player)
-        camera.position.x = player.x
-        camera.position.y = player.y
-
+        camera.position.x = player.position.x
+        camera.position.y = player.position.y
+        camera.zoom = 0.7f
         tiledMap = TmxMapLoader().load("tilemap.tmx")
         tiledMapRenderer = OrthogonalTiledMapRenderer(tiledMap)
 
@@ -42,7 +42,7 @@ class World(camera: OrthographicCamera, player: Player) {
         sheep.update()
 
         if (player.rectangle.overlaps(sheep.rectangle)) {
-            sheep.x -= 250f
+            sheep.position.x = sheep.position.x - 250f
         }
 
         sheep.draw(batch, gameTime)
@@ -52,13 +52,13 @@ class World(camera: OrthographicCamera, player: Player) {
     private fun moveCamera() {
         //example camera implementation
         val diff = 100
-        val dx =  player.x - camera.position.x
-        val dy =  player.y - camera.position.y
+        val dx =  player.position.x - camera.position.x
+        val dy =  player.position.y - camera.position.y
         if(abs(dx) > diff) {
-            camera.position.x += sign(dx)*player.speed
+            camera.position.x += sign(dx)*player.speed*Gdx.graphics.deltaTime
         }
         if(abs(dy) > diff) {
-            camera.position.y += sign(dy)*player.speed
+            camera.position.y += sign(dy)*player.speed*Gdx.graphics.deltaTime
         }
         camera!!.update()
     }

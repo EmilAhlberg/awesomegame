@@ -6,35 +6,28 @@ filter: Nearest,Nearest
 repeat: none
 playerbadlogic
   rotate: false
-  xy: 373, 204
-  size: 256, 256
-  orig: 256, 256
+  xy: 2, 2
+  size: 32, 64
+  orig: 32, 64
   offset: 0, 0
   index: 1
-playerbadlogic
-  rotate: false
-  xy: 373, 204
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: 2
 playerrunning
   rotate: false
-  xy: 631, 260
+  xy: 373, 237
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 1
 playerrunning
   rotate: false
-  xy: 373, 2
+  xy: 575, 237
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: 2
 sheeprunning
   rotate: false
-  xy: 2, 91
+  xy: 2, 68
   size: 369, 369
   orig: 369, 369
   offset: 0, 0

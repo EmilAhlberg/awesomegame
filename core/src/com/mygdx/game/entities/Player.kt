@@ -12,17 +12,9 @@ class Player() : TileMover() {
         animation = GameAssets.animationMap[assetId + AnimationType.IDLE.id]!!
     }
 
-
-    override fun move() {
-        x += dx * speed * Gdx.graphics.deltaTime
-        y += dy * speed * Gdx.graphics.deltaTime
-    }
-
-
     fun updateMovement(dx: Float, dy: Float) {
         //probably need to throttle assigns
-        animation = GameAssets.animationMap[assetId + AnimationType.RUNNING.id]!!
-
+        animation = GameAssets.animationMap[assetId + AnimationType.IDLE.id]!!
         this.dx = dx
         this.dy = dy
     }
