@@ -14,14 +14,12 @@ class Player() : TileMover() {
     }
 
     fun updateMovement(dx: Float, dy: Float) {
-        //probably need to throttle assigns
-        animation = GameAssets.animationMap[assetId + AnimationType.IDLE.id]!!
+
         this.dx = dx
         this.dy = dy
     }
 
     fun resetMovement() {
-        animation = GameAssets.animationMap[assetId + AnimationType.IDLE.id]!!
         dx = 0f
         dy = 0f
     }

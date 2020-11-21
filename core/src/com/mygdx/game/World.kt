@@ -3,8 +3,10 @@ package com.mygdx.game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.maps.MapLayer
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.GridPoint2
@@ -31,13 +33,16 @@ class World(camera: OrthographicCamera, player: Player) {
         Gdx.input.inputProcessor = ControllerFactory.create(player)
 
         movers.add(player)
-        movers.add(Sheep())
+        //movers.add(Sheep())
 
         camera.position.x = player.position.x
         camera.position.y = player.position.y
         camera.zoom = 0.5f
-        tiledMap = TmxMapLoader().load("tilemap.tmx")
+        tiledMap = TmxMapLoader().load("collision.tmx")
         tiledMapRenderer = OrthogonalTiledMapRenderer(tiledMap)
+        CollisionHandler.initBlockingTiles(tiledMap)
+
+
     }
 
 
@@ -46,8 +51,9 @@ class World(camera: OrthographicCamera, player: Player) {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         //culling opportunities
-        movers.forEach { mover -> mover.update()}
-        CollisionHandler.handleCollisions(movers)
+        movers.forEach { mover -> mover.update(bottomLeftTile, topRightTile)}
+        //TODO:
+        //CollisionHandler.handleCollisions(movers)
         movers.forEach{mover -> mover.draw(batch, gameTime)}
     }
 
@@ -55,8 +61,9 @@ class World(camera: OrthographicCamera, player: Player) {
     private fun moveCamera() {
         //example camera implementation
         val diff = 100
-        val dx =  player.position.x - camera.position.x
-        val dy =  player.position.y - camera.position.y
+        //uugh
+        val dx =  player.position.x + GameObject.TILE_WIDTH/2 - camera.position.x
+        val dy =  player.position.y + 3*GameObject.TILE_HEIGHT/2 - camera.position.y
         if(abs(dx) > diff) {
             camera.position.x += sign(dx)*player.speed*Gdx.graphics.deltaTime
         }
@@ -65,9 +72,9 @@ class World(camera: OrthographicCamera, player: Player) {
         }
         camera.update()
 
-        //uuugh
-        bottomLeftTile.set((camera.position.x / GameObject.TILE_WIDTH).toInt(),
-            (camera.position.y / GameObject.TILE_HEIGHT).toInt())
+        //uugh2
+        bottomLeftTile.set(((camera.position.x - camera.viewportWidth/2) / GameObject.TILE_WIDTH).toInt(),
+            ((camera.position.y - camera.viewportHeight/2) / GameObject.TILE_HEIGHT).toInt())
         topRightTile.set(bottomLeftTile.x + (camera.viewportWidth / GameObject.TILE_WIDTH).toInt(),
                 (bottomLeftTile.y + (camera.viewportHeight / GameObject.TILE_HEIGHT).toInt()))
 

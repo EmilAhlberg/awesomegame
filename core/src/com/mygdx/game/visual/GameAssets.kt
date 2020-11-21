@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.mygdx.game.entities.TileMover
 
 class GameAssets {
 
@@ -21,6 +22,15 @@ class GameAssets {
             textureAtlas =  TextureAtlas(Gdx.files.internal("pack.atlas"))
             loadAnimation(Asset.PLAYER.id + AnimationType.IDLE.id)
             loadAnimation(Asset.PLAYER.id + AnimationType.RUNNING.id)
+
+            TileMover.MoveAction.values().forEach {
+                loadAnimation(Asset.PLAYER.id + it.toString().toLowerCase()) }
+
+
+
+
+
+            //loadAnimation(Asset.PLAYER.id + AnimationType.RUNNING.id)
             loadAnimation(Asset.SHEEP.id + AnimationType.RUNNING.id)
 
             //unnecessary
