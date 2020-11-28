@@ -1,20 +1,18 @@
 package com.mygdx.game.entities
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.math.Vector2
-import com.mygdx.game.visual.AnimationType
+import com.mygdx.game.World
 import com.mygdx.game.visual.Asset
 import com.mygdx.game.visual.GameAssets
 
-class Player() : TileMover() {
+class Player(world: World) : TileMover(world) {
 
     init {
         assetId = Asset.PLAYER.id
-        animation = GameAssets.animationMap[assetId + AnimationType.IDLE.id]!!
+        animation = GameAssets.animationMap[assetId + MoveAction.IDLE.toString().toLowerCase()]!!
+        moveToCell(88, 79)
     }
 
     fun updateMovement(dx: Float, dy: Float) {
-
         this.dx = dx
         this.dy = dy
     }

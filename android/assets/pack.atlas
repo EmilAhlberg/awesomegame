@@ -4,6 +4,90 @@ size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+catdown
+  rotate: false
+  xy: 373, 271
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+catidle
+  rotate: false
+  xy: 373, 271
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+catdown
+  rotate: false
+  xy: 777, 473
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+catdown
+  rotate: false
+  xy: 2, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+catleft
+  rotate: false
+  xy: 36, 102
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+catleft
+  rotate: false
+  xy: 373, 237
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+catleft
+  rotate: false
+  xy: 407, 271
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+catright
+  rotate: false
+  xy: 777, 439
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+catright
+  rotate: false
+  xy: 811, 473
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+catup
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+catup
+  rotate: false
+  xy: 36, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+catup
+  rotate: false
+  xy: 70, 102
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
 playerbadlogic
   rotate: false
   xy: 2, 70
@@ -13,70 +97,70 @@ playerbadlogic
   index: 1
 playerdown
   rotate: false
-  xy: 373, 271
+  xy: 373, 203
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 playeridle
   rotate: false
-  xy: 373, 271
+  xy: 373, 203
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 playerdown
   rotate: false
-  xy: 777, 473
+  xy: 407, 237
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 playerdown
   rotate: false
-  xy: 2, 36
+  xy: 441, 271
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 playerleft
   rotate: false
-  xy: 36, 102
+  xy: 777, 405
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 playerleft
   rotate: false
-  xy: 373, 237
+  xy: 811, 439
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 playerleft
   rotate: false
-  xy: 407, 271
+  xy: 845, 473
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 playerright
   rotate: false
-  xy: 777, 439
+  xy: 36, 34
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 playerright
   rotate: false
-  xy: 811, 473
+  xy: 70, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 playerright
   rotate: false
-  xy: 2, 2
+  xy: 104, 102
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -97,21 +181,21 @@ playerrunning
   index: 2
 playerup
   rotate: false
-  xy: 36, 68
+  xy: 373, 169
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 playerup
   rotate: false
-  xy: 70, 102
+  xy: 407, 203
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 playerup
   rotate: false
-  xy: 373, 203
+  xy: 441, 237
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

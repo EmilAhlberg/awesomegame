@@ -5,15 +5,16 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.GridPoint2
 import com.badlogic.gdx.math.Vector2
+import com.mygdx.game.World
 import com.mygdx.game.entities.GameObject.Companion.TILE_WIDTH
 import com.mygdx.game.visual.AnimationType
 import com.mygdx.game.visual.GameAssets
 import kotlin.math.PI
 
-abstract class GameObject() {
+abstract class GameObject(world: World) {
     lateinit var assetId: String
     lateinit var animation: Animation<TextureRegion>
-
+    protected val world: World = world
     var isActive = false
     var position = Vector2(0f, 0f)
 

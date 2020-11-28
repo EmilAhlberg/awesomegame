@@ -26,7 +26,7 @@ class GameScreen (game: Game) : Screen   {
 
 
     init {
-        world = World(stage.viewport.camera as OrthographicCamera, Player())
+        world = World(stage.viewport.camera as OrthographicCamera, batch)
     }
 
     override fun show() {
@@ -38,9 +38,7 @@ class GameScreen (game: Game) : Screen   {
         Gdx.gl.glClearColor(1f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         batch.begin()
-        stage.act(Gdx.graphics.getDeltaTime())
         world.draw(batch, gameTime)
-        stage.draw()
         batch.end()
     }
 

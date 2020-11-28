@@ -4,10 +4,11 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.GridPoint2
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
+import com.mygdx.game.World
 import com.mygdx.game.visual.GameAssets
 import kotlin.math.abs
 
-abstract class TileMover: GameObject() {
+abstract class TileMover(world: World): GameObject(world) {
 
     enum class MoveAction(val vec: Vector2, val point: GridPoint2) {
         IDLE(Vector2(0f,0f), GridPoint2(0,0)),
@@ -45,10 +46,10 @@ abstract class TileMover: GameObject() {
         //cpy performance?
         var nextPos = position.cpy().mulAdd(currentMove.vec, speed*Gdx.graphics.deltaTime)
 
-        var xMismatch= (targetTile.x* TILE_WIDTH).toInt() != nextPos.x.toInt()
-        var yMismatch = (targetTile.y* TILE_WIDTH).toInt() != nextPos.y.toInt()
-        if(xMismatch || yMismatch ) {
-            // Tile move transition
+        var tileDx= (targetTile.x* TILE_WIDTH).toInt() != nextPos.x.toInt()
+        var tileDY = (targetTile.y* TILE_WIDTH).toInt() != nextPos.y.toInt()
+        if(tileDx || tileDY) {
+            // Tile move transition until target is reached.
             position = nextPos
             return
         }
@@ -59,14 +60,20 @@ abstract class TileMover: GameObject() {
     }
 
     private fun isPathBlocked(): Boolean{
-        if(CollisionHandler.isBlocked(targetTile)){
-            targetTile.set(currentTile).add(nextMove.point)
+        if(world.isBlocked(targetTile)){
+            prepareMovement(nextMove)
+            //make sure position is reset
             position.set(currentTile.x* TILE_WIDTH, currentTile.y* TILE_HEIGHT)
-            currentMove = nextMove
             return true
         }
         return false
     }
+
+    fun moveToCell(x: Int, y: Int) {
+        currentTile.set(x,y)
+        position.set(currentTile.x* TILE_WIDTH, currentTile.y* TILE_HEIGHT)
+    }
+
 
     private fun applySmoothing(nextPos: Vector2) {
         // Smoothing of movement action transitions

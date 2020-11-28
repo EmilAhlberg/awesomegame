@@ -20,20 +20,15 @@ class GameAssets {
 
         private fun loadAssets() {
             textureAtlas =  TextureAtlas(Gdx.files.internal("pack.atlas"))
-            loadAnimation(Asset.PLAYER.id + AnimationType.IDLE.id)
-            loadAnimation(Asset.PLAYER.id + AnimationType.RUNNING.id)
+            /*loadAnimation(Asset.PLAYER.id + AnimationType.IDLE.id)
+            loadAnimation(Asset.SHEEP.id + AnimationType.IDLE.id)*/
 
             TileMover.MoveAction.values().forEach {
                 loadAnimation(Asset.PLAYER.id + it.toString().toLowerCase()) }
+            TileMover.MoveAction.values().forEach {
+                loadAnimation(Asset.SHEEP.id + it.toString().toLowerCase()) }
 
-
-
-
-
-            //loadAnimation(Asset.PLAYER.id + AnimationType.RUNNING.id)
-            loadAnimation(Asset.SHEEP.id + AnimationType.RUNNING.id)
-
-            //unnecessary
+            //unnecessary?
             manager.finishLoading()
         }
 
