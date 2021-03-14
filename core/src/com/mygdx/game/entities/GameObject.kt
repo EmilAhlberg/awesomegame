@@ -9,6 +9,7 @@ import com.mygdx.game.World
 import com.mygdx.game.entities.GameObject.Companion.TILE_WIDTH
 import com.mygdx.game.visual.AnimationType
 import com.mygdx.game.visual.GameAssets
+import com.mygdx.game.visual.GameCamera
 import kotlin.math.PI
 
 abstract class GameObject(world: World) {
@@ -23,22 +24,23 @@ abstract class GameObject(world: World) {
 
     var rotation = 0f
 
+    fun getCenteredPosition(): Vector2 = Vector2(TILE_WIDTH, TILE_HEIGHT).scl(0.5f).add(position)
 
-    fun draw(batch: Batch, gameTime: Float) {
+    fun draw(batch: Batch, delta: Float) {
         if (!isActive){
             return
         }
 
-        val frame = animation.getKeyFrame(gameTime)
+        val frame = animation.getKeyFrame(World.gameTime)
         batch.draw(frame, position.x, position.y, frame.regionWidth / 2f, frame.regionHeight / 2f,
             frame.regionWidth.toFloat(), frame.regionHeight.toFloat(), 1f, 1f, rotation*180/ PI.toFloat())
     }
 
 
-    open fun update(bottomLeftTile: GridPoint2, topRightTile: GridPoint2) {
+    open fun update() {
         //very strict culling
-        isActive = currentTile.x in bottomLeftTile.x..topRightTile.x &&
-                   currentTile.y in bottomLeftTile.y..topRightTile.y
+        isActive = currentTile.x in GameCamera.bottomLeftTile.x..GameCamera.topRightTile.x &&
+                   currentTile.y in GameCamera.bottomLeftTile.y..GameCamera.topRightTile.y
     }
 
 

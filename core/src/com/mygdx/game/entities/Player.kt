@@ -8,8 +8,8 @@ class Player(world: World) : TileMover(world) {
 
     init {
         assetId = Asset.PLAYER.id
-        animation = GameAssets.animationMap[assetId + MoveAction.IDLE.toString().toLowerCase()]!!
-        moveToCell(88, 79)
+        animation = GameAssets.animationMap[assetId + MoveAction.IDLE.toAnimationString()]!!
+        spawnAt(88, 79)
     }
 
     fun updateMovement(dx: Float, dy: Float) {

@@ -8,10 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.GridPoint2
-import com.mygdx.game.entities.CollisionHandler
-import com.mygdx.game.entities.Player
-import com.mygdx.game.entities.Sheep
-import com.mygdx.game.entities.TileMover
+import com.mygdx.game.entities.*
 import kotlin.collections.ArrayList
 
 class Level(player: Player, batch: Batch, level: String, world: World)  {
@@ -29,7 +26,6 @@ class Level(player: Player, batch: Batch, level: String, world: World)  {
     init {
         tiledMapRenderer = OrthogonalTiledMapRenderer(tiledMap, batch)
         collisionHandler.initTilePropertyMatrix(tiledMap)
-        movers.add(player)
 
         val sheep = Sheep(world)
         movers.add(sheep)
@@ -37,18 +33,20 @@ class Level(player: Player, batch: Batch, level: String, world: World)  {
         movers.add(sheep2)
         val sheep3 = Sheep(world)
         movers.add(sheep3)
+        movers.add(player)
+
     }
 
 
-    fun update(bottomLeftTile: GridPoint2, topRightTile: GridPoint2) {
-        movers.forEach { mover -> mover.update(bottomLeftTile, topRightTile)}
+    fun update() {
+        movers.forEach { mover -> mover.update()}
     }
 
 
-    fun draw(batch: Batch, gameTime: Float) {
+    fun draw(batch: Batch, delta: Float) {
         //culling opportunities
         //TODO:
-        //CollisionHandler.handleCollisions(movers)
+        collisionHandler.handleColliders(movers)
 
         repeat(drawnLayers) {i -> tiledMapRenderer.renderTileLayer(tiledMap.layers.get(i) as TiledMapTileLayer)}
 
@@ -61,12 +59,13 @@ class Level(player: Player, batch: Batch, level: String, world: World)  {
         }
 
         //.layers.forEach{layer -> tiledMapRenderer.renderTileLayer(layer as TiledMapTileLayer)}
-        movers.forEach{mover -> mover.draw(batch, gameTime)}
+        movers.forEach{mover -> mover.draw(batch, delta)}
 
 
         if (movers[0].currentTile.x == 3 && currentLevel == 10) {
             currentLevel++
         }
+
     }
 
 

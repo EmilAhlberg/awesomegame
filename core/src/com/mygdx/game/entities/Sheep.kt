@@ -14,27 +14,26 @@ class Sheep(world: World) : TileMover(world) {
 
     init {
         assetId = Asset.SHEEP.id
-        animation = GameAssets.animationMap[assetId + MoveAction.IDLE.toString().toLowerCase()]!!
-        moveToCell(89, 75)
+        animation = GameAssets.animationMap[assetId + MoveAction.IDLE.toAnimationString()]!!
+        spawnAt(89, 75)
         speed = 25f
     }
 
 
-    override fun update(bottomLeftTile: GridPoint2, topRightTile: GridPoint2) {
+    override fun update() {
         dx = 0f
         dy = 0f
-        println("${World.gameTime} $lastMoveTime")
-        if (World.gameTime - moveCap > lastMoveTime ) {
+        if (World.gameTime - moveCap > lastMoveTime) {
             lastMoveTime = World.gameTime
             moveCap = RandomHelper.poisson(poissonMean)
             when (RandomHelper.nextFloat()) {
                 in 0.75f..1f -> dx = 1f
                 in 0.5f..75f -> dx = -1f
                 in 0.25f..0.5f -> dy = 1f
-                in 0.0f..0.2
-                    5f -> dy = -1f
+                in 0.0f..0.25f -> dy = -1f
             }
         }
-        super.update(bottomLeftTile, topRightTile)
+
+        super.update()
     }
 }

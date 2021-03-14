@@ -7,11 +7,13 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.mygdx.game.entities.TileMover
 
+
 class GameAssets {
 
     companion object {
         private val manager : AssetManager = AssetManager()
         lateinit var textureAtlas: TextureAtlas
+        lateinit var particleAtlas: TextureAtlas
         val animationMap = HashMap<String, Animation<TextureRegion>>()
 
         init {
@@ -27,6 +29,8 @@ class GameAssets {
                 loadAnimation(Asset.PLAYER.id + it.toString().toLowerCase()) }
             TileMover.MoveAction.values().forEach {
                 loadAnimation(Asset.SHEEP.id + it.toString().toLowerCase()) }
+
+            particleAtlas = TextureAtlas(Gdx.files.internal("particles.atlas"))
 
             //unnecessary?
             manager.finishLoading()

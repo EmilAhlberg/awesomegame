@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
-import com.mygdx.game.World
 import com.mygdx.game.entities.Player
+import com.mygdx.game.visual.GameCamera
 
 class AndroidPlayerController (player: Player) : GestureDetector.GestureListener {
 
@@ -29,7 +29,7 @@ class AndroidPlayerController (player: Player) : GestureDetector.GestureListener
     }
 
     override fun zoom(initialDistance: Float, distance: Float): Boolean {
-        World.zoom = distance/initialDistance
+        GameCamera.zoom = distance/initialDistance
         return true
     }
 

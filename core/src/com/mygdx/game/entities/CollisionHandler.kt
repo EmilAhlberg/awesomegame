@@ -3,14 +3,12 @@ package com.mygdx.game.entities
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.math.GridPoint2
-import java.lang.RuntimeException
-
 
 class CollisionHandler {
 
     private val matrix: Array<IntArray> = Array(200) { IntArray(200) }
 
-    fun handleCollisions(movers: ArrayList<TileMover>) {
+    fun handleColliders(movers: ArrayList<TileMover>) {
         // n*log(n) of actives!
         val sortedActives = movers.filter { mover -> mover.isActive }.sortedBy { a -> a.position.x }
         // "efficient n^2" of actives
@@ -29,7 +27,6 @@ class CollisionHandler {
     }
 
     fun isBlocked(tile: GridPoint2): Boolean {
-        println(matrix[tile.x][tile.y])
         return matrix[tile.x][tile.y] == TileProperties.Properties.BLOCKED.id
 
     }
@@ -47,8 +44,8 @@ class CollisionHandler {
         for (layer in tiledMap.layers) {
             (layer as TiledMapTileLayer).getCell(i, j)?.let{cell ->
                 for (property in cell.tile.properties.keys) {
-                    val t= TileProperties.Properties.fromType(property)
-                    t?.let { return t.id }
+                    val tileWithProperty = TileProperties.Properties.fromType(property)
+                    tileWithProperty?.let { return tileWithProperty.id }
                 }
             }
         }
@@ -58,6 +55,7 @@ class CollisionHandler {
     private fun checkCollision(current: TileMover, collider: TileMover) {
         if (current.currentTile.equals(collider.currentTile)) {
             println("colliders: $current, $collider")
+            current.handleCollision()
         }
     }
 

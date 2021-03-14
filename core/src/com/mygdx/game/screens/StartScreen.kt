@@ -20,7 +20,7 @@ class StartScreen(game: Game) : Screen {
 
     init {
         val skin = Skin(Gdx.files.internal("skin/glassy-ui.json"))
-        val title = Label("There and Back Again", skin, "big-black")
+        val title = Label("Lorem Ipsum", skin, "big-black")
         title.setAlignment(Align.center)
         title.setY(Gdx.graphics.height * 2 / 3f)
         title.setWidth(Gdx.graphics.width*1.0f)
